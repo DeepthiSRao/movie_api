@@ -7,54 +7,49 @@ const app = express();
 
 let movieData = [
     {
-        "title": "The Shawshank Redemption",
-        "rank": "1",
-        "id": "tt0111161"
+        "title": "Raya and the Last Dragon",
+        "director": "Don Hall",
+        "genre": [
+            "Animation", 
+            "Action", 
+            "Adventure"
+        ]
     },
     {
-        "title": "The Godfather",
-        "rank": "2",
-        "id": "tt0068646"
+        "title": "Cowboy Bebop: The Movie",
+        "director": "Shin'ichirô Watanabe",
+        "genre": [
+            "Animation", 
+            "Action", 
+            "Crime"
+        ]
     },
     {
-        "title": "The Godfather: Part II",
-        "rank": "3",
-        "id": "tt0071562"
+        "title": "Injustice",
+        "director": "Matt Peters",
+        "genre": [
+            "Animation", 
+            "Action", 
+            "Adventure"
+        ]
     },
     {
-        "title": "Pulp Fiction",
-        "rank": "4",
-        "id": "tt0110912"
+        "title": "Kung Fu Panda",
+        "director": "Mark Osborne",
+        "genre": [
+            "Animation", 
+            "Action", 
+            "Adventure"
+        ]
     },
     {
-        "title": "The Good, the Bad and the Ugly",
-        "rank": "5",
-        "id": "tt0060196"
-    },
-    {
-        "title": "The Dark Knight",
-        "rank": "6",
-        "id": "tt0468569"
-    },
-    {
-        "title": "12 Angry Men",
-        "rank": "7",
-        "id": "tt0050083"
-    },
-    {
-        "title": "Schindler's List",
-        "rank": "8",
-        "id": "tt0108052"
-    },
-    {
-        "title": "The Lord of the Rings: The Return of the King",
-        "rank": "9",
-        "id": "tt0167260"
-    },
-    {
-        "title": "Fight Club",
-        "rank": "10",
-        "id": "tt0137523"
+        "title": "How to Train Your Dragon: The Hidden World",
+        "director": "Dean DeBlois",
+        "genre": [
+            "Animation", 
+            "Action", 
+            "Adventure"
+        ]
     }
 ]
 
@@ -77,16 +72,56 @@ app.use((err, req, res, next) => {
     res.status(500).send('Error has occured!');
 })
 
+
+app.get('/', (req, res) => {
+    res.send("Welcome to myFlix api!!!!");
+});
+
+// Return a list of ALL movies to the user
 app.get('/movies', (req, res) => {
     res.json(movieData);
 });
 
-app.get('/', (req, res) => {
-    res.send("Welcome to Movie data API!!!!");
+// Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+app.get('/movies/:title', (req, res) => {
+    res.json( movieData.find(( movie ) =>{
+        return movie.title === req.params.title
+    }));
 });
 
-app.get('/documentation.html', (req, res) => {
-    res.sendFile('public/documentation.html', {root: __dirname});
+// Return data about a genre (description) by name/title (e.g., “Thriller”)
+app.get('/movies/genre/:title', (req, res) => {
+    res.send("Successful GET request - Returns genre data whose movie title matches with req param title");
+});
+
+// Return data about a director (bio, birth year, death year) by name
+app.get('/directors/:name', (req, res) => {
+    res.send("Successful GET request - Returns director information");
+});
+
+// Allow new users to register
+app.post('/users', (req, res) => {
+    res.send("Successful POST request - Returns user information with id after registration");
+});
+
+// Allow users to udpdate their user info (username)
+app.put('/users/:username', (req, res) => {
+    res.send("Successful PUT request after updating user info");
+});
+
+// Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+app.post('/users/:userID/movies/:movieID', (req, res) => {
+    res.send("Successful POST request - after adding a movie to user favourite list");
+});
+
+// Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
+app.delete('/users/:userID/movies/:movieID', (req, res) => {
+    res.send("Successful DELETE request - after deleting a movie from user favorites movie list");
+});
+
+// Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
+app.delete('/users/:userID', (req, res) => {
+    res.send("Successful DELETE request- after deregistering existing user");
 });
 
 app.listen(8080, () => {
