@@ -4,10 +4,133 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
     <title>Documentation</title>
 </head>
 <body>
-    <h1>Documentation Page</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, sunt iste. Aperiam repellendus pariatur praesentium nobis quis ea soluta, culpa sunt iste optio facilis! Iusto accusantium aut voluptatum minus! Architecto.</p>
+    <h2>myFlix API Documentation</h2>
+    <table>
+        <thead>
+          <tr>
+            <th>Sl No</th>
+            <th class="request">Request</th>
+            <th>Endpoint Url</th>
+            <th>Method type</th>
+            <th>Query Parameters</th>
+            <th class="request">Request data format</th>
+            <th class="response">Response data format</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>1</td>
+              <td>Return a list of all movies</td>
+              <td>/movies</td>
+              <td>GET</td>
+              <td>-</td>
+              <td>-</td>
+              <td>A JSON array holding data about movies</td>
+            </tr>    
+            <tr>
+              <td>2</td>
+              <td>Return data about a single movie by title</td>
+              <td>/movies/:title</td>
+              <td>GET</td>
+              <td>/:title</td>
+              <td>-</td>
+              <td>A JSON object holding data about a single movie, containing the title, description, genre, director, image URL, whether it's featured or not. </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Return data about a genre by name/title</td>
+              <td>/movies/genre/:title</td>
+              <td>GET</td>
+              <td>/:title</td>
+              <td>-</td>
+              <td>A JSON object holding data about a single genre.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Return data about a director by name</td>
+              <td>/directors/:name</td>
+              <td>GET</td>
+              <td>/:name</td>
+              <td>-</td>
+              <td>A JSON object holding the name, bio, birthdate and death year of a director.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Allow new users to register</td>
+              <td>/users</td>
+              <td>POST</td>
+              <td>-</td>
+              <td>
+                A JSON Object holding data about the new user.
+                <br>
+                <br>
+                <code>
+                  Example:
+                  <br>
+                    { <br>
+                      "Username": "user1", <br>
+                      "Password": "password1",<br>
+                      "email": "user1@gmail.com"<br>
+                    } <br>
+                </code>
+              </td>
+              <td>
+                A JSON Object holding data about the new user created, with an id.
+                <br>  
+                <br>            
+                <code>
+                  Example:
+                  <br>
+                  { <br>
+                    "_id": XXXXX,<br>
+                    "Username": "user1", <br>
+                    "Password": "password1",<br>
+                    "email": "user1@gmail.com"<br>
+                  } <br>
+                </code>
+              </td>
+            </tr>     
+            <tr>
+              <td>6</td>
+              <td>Allow users to update their user info</td>
+              <td>/users/:username</td>
+              <td>PUT</td>
+              <td>/:username</td>
+              <td>A JSON Object holding data the user information along with field to update.</td>
+              <td>A JSON Object holding the user's updated data.</td>
+            </tr>      
+            <tr>
+              <td>7</td>
+              <td>Allow users to add a movie to their list of favorites </td>
+              <td>/users/:userID/movies</td>
+              <td>POST</td>
+              <td>/:userID</td>
+              <td>-</td>
+              <td>A text message indicating movie has been successfully added.</td>
+            </tr>     
+            <tr>
+              <td>8</td>
+              <td>Allow users to remove a movie from their list of favorites</td>
+              <td>/users/:userID/movies/:movieID</td>
+              <td>DELETE</td>
+              <td>/:userID, /:movieID</td>
+              <td>-</td>
+              <td>A text message indicating whether the movie was successfully removed.</td>
+            </tr>     
+            <tr>
+              <td>9</td>
+              <td>Allow existing user to deregister</td>
+              <td>/users/:userID</td>
+              <td>DELETE</td>
+              <td>/:userID</td>
+              <td>-</td>
+              <td>A text message indicating whether the user was successfully deleted.</td>
+            </tr>
+          </tbody>
+    </table>
 </body>
 </html>

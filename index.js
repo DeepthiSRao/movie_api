@@ -84,14 +84,28 @@ app.get('/movies', (req, res) => {
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get('/movies/:title', (req, res) => {
-    res.json( movieData.find(( movie ) =>{
+    let movie = movieData.find(( movie ) =>{
         return movie.title === req.params.title
-    }));
+    });
+
+    if(movie){
+        res.json(movie);
+    }else{
+        res.status(404).send('Movie with title ' + req.params.title + ' was not found.');
+    }
 });
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”)
 app.get('/movies/genre/:title', (req, res) => {
-    res.send("Successful GET request - Returns genre data whose movie title matches with req param title");
+    let movie = movieData.find(( movie ) =>{
+        return movie.title === req.params.title
+    });
+
+    if(movie){
+        res.json(movie.genre);
+    }else{
+        res.status(404).send('Movie with title ' + req.params.title + ' was not found.');
+    }
 });
 
 // Return data about a director (bio, birth year, death year) by name
@@ -110,7 +124,7 @@ app.put('/users/:username', (req, res) => {
 });
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
-app.post('/users/:userID/movies/:movieID', (req, res) => {
+app.post('/users/:userID/movies', (req, res) => {
     res.send("Successful POST request - after adding a movie to user favourite list");
 });
 
