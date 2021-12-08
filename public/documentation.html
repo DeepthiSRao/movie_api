@@ -34,27 +34,27 @@
             <tr>
               <td>2</td>
               <td>Return data about a single movie by title</td>
-              <td>/movies/:title</td>
+              <td>/movies/:Title</td>
               <td>GET</td>
-              <td>/:title</td>
+              <td>/:Title</td>
               <td>-</td>
               <td>A JSON object holding data about a single movie, containing the title, description, genre, director, image URL, whether it's featured or not. </td>
             </tr>
             <tr>
               <td>3</td>
               <td>Return data about a genre by name/title</td>
-              <td>/movies/genre/:title</td>
+              <td>/movies/genre/:Name</td>
               <td>GET</td>
-              <td>/:title</td>
+              <td>/:Name</td>
               <td>-</td>
-              <td>A JSON object holding data about a single genre.</td>
+              <td>A JSON object holding movie data which matches genre name.</td>
             </tr>
             <tr>
               <td>4</td>
               <td>Return data about a director by name</td>
-              <td>/directors/:name</td>
+              <td>/directors/:Name</td>
               <td>GET</td>
-              <td>/:name</td>
+              <td>/:Name</td>
               <td>-</td>
               <td>A JSON object holding the name, bio, birthdate and death year of a director.</td>
             </tr>
@@ -74,7 +74,8 @@
                     { <br>
                       "Username": "user1", <br>
                       "Password": "password1",<br>
-                      "email": "user1@gmail.com"<br>
+                      "Email": "user1@gmail.com"<br>
+                      "Birthday": "09/02/2000"<br>
                     } <br>
                 </code>
               </td>
@@ -89,7 +90,8 @@
                     "_id": XXXXX,<br>
                     "Username": "user1", <br>
                     "Password": "password1",<br>
-                    "email": "user1@gmail.com"<br>
+                    "Email": "user1@gmail.com"<br>
+                    "Birthday": "09/02/2000"<br>
                   } <br>
                 </code>
               </td>
@@ -97,40 +99,40 @@
             <tr>
               <td>6</td>
               <td>Allow users to update their user info</td>
-              <td>/users/:username</td>
+              <td>/users/:Username</td>
               <td>PUT</td>
-              <td>/:username</td>
+              <td>/:Username</td>
               <td>A JSON Object holding data the user information along with field to update.</td>
               <td>A JSON Object holding the user's updated data.</td>
             </tr>      
             <tr>
               <td>7</td>
               <td>Allow users to add a movie to their list of favorites </td>
-              <td>/users/:userID/movies</td>
+              <td>/users/:UserID/movies/:MovieID</td>
               <td>POST</td>
-              <td>/:userID</td>
+              <td>/:UserID, /:MovieID</td>
               <td>-</td>
-              <td>A text message indicating movie has been successfully added.</td>
+              <td>A JSON Object holding the user's updated favorite movie list.</td>
             </tr>     
             <tr>
               <td>8</td>
               <td>Allow users to remove a movie from their list of favorites</td>
-              <td>/users/:userID/movies/:movieID</td>
+              <td>/users/:UserID/movies/:MovieID</td>
               <td>DELETE</td>
-              <td>/:userID, /:movieID</td>
+              <td>/:UserID, /:MovieID</td>
               <td>-</td>
-              <td>A text message indicating whether the movie was successfully removed.</td>
+              <td>A JSON Object holding the user's altered favorite movie list.</td>
             </tr>     
             <tr>
               <td>9</td>
               <td>Allow existing user to deregister</td>
-              <td>/users/:userID</td>
+              <td>/users/:Username</td>
               <td>DELETE</td>
-              <td>/:userID</td>
+              <td>/:Username</td>
               <td>-</td>
               <td>A text message indicating whether the user was successfully deleted.</td>
             </tr>
           </tbody>
     </table>
-</body>
+  </body>
 </html>
