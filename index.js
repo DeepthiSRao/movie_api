@@ -51,6 +51,12 @@ app.use((err, req, res, next) => {
     res.status(500).send('Error has occured!');
 })
 
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Listening on Port ${port}`);
+})
+
+//API endpoints start
 app.get('/', (req, res) => {
     res.send("Welcome to myFlix api!!!!");
 });
@@ -166,7 +172,7 @@ app.put('/users/:Username',
             if(!errors.isEmpty()){
                 return res.status(422).json({errors: errors.array()});
             }
-            
+
             const { Username, Password, Email, Birthday } = req.body;
 
             Users.findOneAndUpdate(
