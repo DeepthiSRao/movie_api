@@ -34,7 +34,7 @@ passport.use( new LocalStrategy({
 //JWT authentication
 passport.use( new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'myFlix_API_key'
+    secretOrKey: 'myFlix API secret key'
 }, ( jwtPayload, callback ) => {
     return Users.findById(jwtPayload._id)
         .then((user) =>{

@@ -1,1 +1,3 @@
-# movie_api
+# Movie API
+
+This is a backend application

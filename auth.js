@@ -1,4 +1,4 @@
-const jwtSecret = 'myFlix_API_key';
+const jwtSecret = 'myFlix API secret key';
 
 const jwt = require('jsonwebtoken');
 const passport = require('passport');

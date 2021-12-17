@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
+const cors = require('cors');
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -24,6 +24,20 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(methodOverride());
+
+//for allowing app access from by others 
+const allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            //if specified origin isn't found on the list of allowed origins
+            let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+            return callback(new Error(message), false); 
+        }
+        return callback(null, true);
+    }
+}));
 
 //auth module requires body parser
 const passport = require('passport');
