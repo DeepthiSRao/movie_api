@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const cors = require('cors');
+const { check, validationResult } = require('express-validator');
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -103,61 +104,93 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt',{ session: false 
 });
 
 // Allow new users to register
-app.post('/users', (req, res) => {
-    const { Username, Password, Email, Birthday } = req.body;
+app.post('/users', 
+        [
+            check('Username', 'Username is required').not().isEmpty(),
+            check('Username', 'Username must contain atleast 5 characters').isLength({min: 5}),
+            check('Username', 'Username must contain alphanumeric characters').isAlphanumeric(),
+            check('Password', 'Password is required').not().isEmpty(),
+            check('Email', 'Email is not valid').isEmail(),
+        ], 
+        (req, res) => {
+            let errors = validationResult(req);
 
-    Users.findOne({Username: Username})
-    .then((user) => {
-        if(user) {
-            return res.status(400).send(`${Username} already exists`);
-        }else{
-            Users.create({
-                Username,
-                Password,
-                Email,
-                Birthday
-            })
+            if(!errors.isEmpty()){
+                return res.status(422).json({errors: errors.array()});
+            }
+
+            const { Username, Password, Email, Birthday } = req.body;
+            const hashedPassword = Users.hashPassword(Password);
+
+            // Search to see if a user with the requested username already exists
+            Users.findOne({Username: Username})
             .then((user) => {
-                res.status(201).json(user);
+                //If the user is found, send a response that it already exists
+                if(user) {
+                    return res.status(400).send(`${Username} already exists`);
+                }else{
+                    Users.create({
+                        Username,
+                        Password: hashedPassword,
+                        Email,
+                        Birthday
+                    })
+                    .then((user) => {
+                        res.status(201).json(user);
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                        res.status(500).send(`Error: ${err}`);
+                    });
+                }
             })
             .catch((err) => {
                 console.error(err);
                 res.status(500).send(`Error: ${err}`);
             });
-        }
-    })
-    .catch((err) => {
-        console.error(err);
-        res.status(500).send(`Error: ${err}`);
-    });
-});
+        });
 
 // Allow users to udpdate their user info (username)
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const { Username, Password, Email, Birthday } = req.body;
+app.put('/users/:Username',
+        passport.authenticate('jwt', { session: false }), 
+        [
+            check('Username', 'Username is required').not().isEmpty(),
+            check('Username', 'Username must contain atleast 5 characters').isLength({min: 5}),
+            check('Username', 'Username must contain alphanumeric characters').isAlphanumeric(),
+            check('Password', 'Password is required').not().isEmpty(),
+            check('Email', 'Email is not valid').isEmail(),
+        ], 
+        (req, res) => {
+            let errors = validationResult(req);
 
-    Users.findOneAndUpdate(
-        {Username : req.params.Username},
-        {
-            $set: { 
-                Username,
-                Password,
-                Email,
-                Birthday
+            if(!errors.isEmpty()){
+                return res.status(422).json({errors: errors.array()});
             }
-        },
-        { new: true },
-        (err, updatedUser) => {
-            if(err){
-                console.error(err);
-                res.status(500).send(`Error: ${err}`);
-            }
-            else{
-                res.status(200).json(updatedUser);
-            }
-        }
-    );
-});
+            
+            const { Username, Password, Email, Birthday } = req.body;
+
+            Users.findOneAndUpdate(
+                {Username : req.params.Username},
+                {
+                    $set: { 
+                        Username,
+                        Password,
+                        Email,
+                        Birthday
+                    }
+                },
+                { new: true },
+                (err, updatedUser) => {
+                    if(err){
+                        console.error(err);
+                        res.status(500).send(`Error: ${err}`);
+                    }
+                    else{
+                        res.status(200).json(updatedUser);
+                    }
+                }
+            );
+        });
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
