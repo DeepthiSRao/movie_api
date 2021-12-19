@@ -8,15 +8,7 @@ const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const app = express();
 
-/* 
-//connecting local db
 mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
- */
-//connecting cloud db
-mongoose.connect('mongodb+srv://myFlixDBadmin:Happy2019@myflixdb.56cnp.mongodb.net/myFlixDB?retryWrites=true&w=majority', 
-                 { useNewUrlParser: true, 
-                 useUnifiedTopology: true });
-
 //for connecting to mongoDB
 const Movies = Models.Movie;
 const Users = Models.User;
