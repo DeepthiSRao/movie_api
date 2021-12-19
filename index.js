@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 
 //for allowing app access from by others 
-const allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+const allowedOrigins = ['http://localhost:8080', 'https://my-flix-movie-api.herokuapp.com/'];
 app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);
