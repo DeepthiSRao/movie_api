@@ -8,4 +8,4 @@ This is a backend "movie" application build using Node.js. This application will
 * Express
 * MongoDB
 
-## Project live demo link: https://my-flix-movie-api.herokuapp.com/
+##The app is deployed to Heroku. Read about all the features and relevant endpoints <a href="https://my-flix-movie-api.herokuapp.com/">here.</a>
