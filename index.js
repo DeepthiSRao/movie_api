@@ -174,6 +174,7 @@ app.put('/users/:Username',
             check('Username', 'Username must contain atleast 5 characters').isLength({min: 5}),
             check('Username', 'Username must contain alphanumeric characters').isAlphanumeric(),
             check('Password', 'Password is required').not().isEmpty(),
+            check('Password', 'Password must contain atleast 5 characters').isLength({min: 5}),
             check('Email', 'Email is not valid').isEmail(),
         ], 
         (req, res) => {
@@ -184,13 +185,14 @@ app.put('/users/:Username',
             }
 
             const { Username, Password, Email, Birthday } = req.body;
+            const hashedPassword = Users.hashPassword(Password);
 
             Users.findOneAndUpdate(
                 {Username : req.params.Username},
                 {
                     $set: { 
                         Username,
-                        Password,
+                        Password : hashedPassword,
                         Email,
                         Birthday
                     }
