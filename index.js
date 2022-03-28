@@ -36,7 +36,13 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 
 //for allowing app access from by others 
-const allowedOrigins = ['http://localhost:8080', 'https://my-flix-movie-api.herokuapp.com/', 'http://localhost:1234', 'https://myflix-react-app.netlify.app'];
+const allowedOrigins = ['http://localhost:8080', 
+                        'https://my-flix-movie-api.herokuapp.com/', 
+                        'http://localhost:1234', 
+                        'https://myflix-react-app.netlify.app',
+                        'http://localhost:4200',
+                       ];
+                       
 app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);

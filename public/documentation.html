@@ -15,8 +15,9 @@
           <tr>
             <th>Sl No</th>
             <th class="req-col">Request</th>
-            <th>Endpoint Url</th>
             <th>Method type</th>
+            <th>Endpoint Url</th>
+            <th>Query Parameters</th>           
             <th class="req-col">Request data format</th>
             <th class="req-col">Response data format</th>
           </tr>
@@ -25,40 +26,45 @@
             <tr>
               <td>1</td>
               <td>Return a list of all movies</td>
-              <td>/movies</td>
               <td>GET</td>
-              <td>-</td>
-              <td>A JSON array holding data about movies</td>
+              <td>/movies</td>
+              <td>None</td>
+              <td>None</td>
+              <td>Returns a JSON array of all movies</td>
             </tr>    
             <tr>
               <td>2</td>
-              <td>Return data about a single movie by title</td>
-              <td>/movies/:Title</td>
+              <td>Return data about a single movie by TITLE</td>
               <td>GET</td>
-              <td>-</td>
-              <td>A JSON object holding data about a single movie, containing the title, description, genre, director, image URL, whether it's featured or not. </td>
+              <td>/movies/:Title</td>
+              <td>:Title</td>
+              <td>None</td>
+              <td>Returns a JSON object of movie matching the title passed in the url</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>Return data about a genre by name/title</td>
-              <td>/movies/genre/:Name</td>
+              <td>Return data about a single movie By GENRE</td>
               <td>GET</td>
-              <td>-</td>
+              <td>/movies/genre/:Genre</td>
+              <td>:Genre</td>
+              <td>None</td>
               <td>A JSON object holding movie data which matches genre name.</td>
             </tr>
             <tr>
               <td>4</td>
-              <td>Return data about a director by name</td>
+              <td>Return a list of movies BY DIRECTOR NAME</td>
               <td>/directors/:Name</td>
               <td>GET</td>
-              <td>-</td>
-              <td>A JSON object holding the name, bio, birthdate and death year of a director.</td>
+              <td>:Director</td>
+              <td>None</td>
+              <td>Returns a JSON object of all the movies matching by the director name that was passed in the url</td>
             </tr>
             <tr>
               <td>5</td>
-              <td>Allow new users to register</td>
-              <td>/users</td>
+              <td>Allow new user to register</td>
               <td>POST</td>
+              <td>/users</td>
+              <td>None</td>
               <td>
                 A JSON Object holding data about the new user.
                 <br>
@@ -75,7 +81,7 @@
                 </code>
               </td>
               <td>
-                A JSON Object holding data about the new user created, with an id.
+                Returns a JSON Object holding data about the new user created, with an id.
                 <br>  
                 <br>            
                 <code>
@@ -94,34 +100,38 @@
             <tr>
               <td>6</td>
               <td>Allow users to update their user info</td>
-              <td>/users/:Username</td>
               <td>PUT</td>
+              <td>/users/:Username</td>
+              <td>:Username</td>
               <td>A JSON Object holding data the user information along with field to update.</td>
-              <td>A JSON Object holding the user's updated data.</td>
+              <td>Returns a JSON object with updated user data</td>
             </tr>      
             <tr>
               <td>7</td>
               <td>Allow users to add a movie to their list of favorites </td>
               <td>/users/:UserID/movies/:MovieID</td>
               <td>POST</td>
-              <td>-</td>
-              <td>A JSON Object holding the user's updated favorite movie list.</td>
+              <td>:UserID, :MovieID</td>
+              <td>None</td>
+              <td>Returns a JSON object with updated user data</td>
             </tr>     
             <tr>
               <td>8</td>
               <td>Allow users to remove a movie from their list of favorites</td>
               <td>/users/:UserID/movies/:MovieID</td>
               <td>DELETE</td>
-              <td>-</td>
-              <td>A JSON Object holding the user's altered favorite movie list.</td>
+              <td>:UserID, :MovieID</td>
+              <td>None</td>
+              <td>Returns a JSON object with updated user data</td>            
             </tr>     
             <tr>
               <td>9</td>
               <td>Allow existing user to deregister</td>
               <td>/users/:Username</td>
               <td>DELETE</td>
-              <td>-</td>
-              <td>A text message indicating whether the user was successfully deleted.</td>
+              <td>:Username</td>
+              <td>None</td>
+              <td>Returns a text confirming that the user was deleted successfully.</td>
             </tr>
           </tbody>
     </table>
