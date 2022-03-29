@@ -138,6 +138,7 @@ app.post('/users',
             let errors = validationResult(req);
 
             if(!errors.isEmpty()){
+                res.statusMessage = "User registration failed with following error: " + errors.array();
                 return res.status(422).json({errors: errors.array()});
             }
 
@@ -149,7 +150,7 @@ app.post('/users',
             .then((user) => {
                 //If the user is found, send a response that it already exists
                 if(user) {
-                    return res.status(400).send(`${Username} already exists`);
+                    return res.status(400).send(`User with name:${Username} already exists`);
                 }else{
                     Users.create({
                         Username,
@@ -187,7 +188,7 @@ app.put('/users/:Username',
             let errors = validationResult(req);
 
             if(!errors.isEmpty()){
-                res.statusMessage = "Backend validation error"
+                res.statusMessage = "User update failed with following error: " + errors.array();
                 return res.status(422).json({errors: errors.array()});
             }
 
@@ -268,9 +269,9 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
     Users.findOneAndRemove({Username: Username})
     .then((user) => {
         if(!user){
-            res.status(400).send(`${Username} was not found`);
+            res.status(400).send(`User with name: ${Username} was not found`);
         }else{
-            res.status(200).send(`${Username} was deleted.`);
+            res.status(200).send(`User with name: ${Username} was deleted.`);
         }
     })
     .catch((err) => {
