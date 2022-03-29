@@ -187,6 +187,7 @@ app.put('/users/:Username',
             let errors = validationResult(req);
 
             if(!errors.isEmpty()){
+                res.statusMessage = "Backend validation error"
                 return res.status(422).json({errors: errors.array()});
             }
 
