@@ -41,7 +41,7 @@ const allowedOrigins = ['http://localhost:8080',
                         'http://localhost:1234', 
                         'https://myflix-react-app.netlify.app',
                         'http://localhost:4200',
-                        'https://deepthisrao.github.io/myflix-angular-client'
+                        'https://deepthisrao.github.io'
                        ];
                        
 app.use(cors({
