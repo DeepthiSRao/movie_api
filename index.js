@@ -41,6 +41,7 @@ const allowedOrigins = ['http://localhost:8080',
                         'http://localhost:1234', 
                         'https://myflix-react-app.netlify.app',
                         'http://localhost:4200',
+                        'https://deepthisrao.github.io/myflix-angular-client'
                        ];
                        
 app.use(cors({
@@ -139,7 +140,7 @@ app.post('/users',
 
             if(!errors.isEmpty()){
                 res.statusMessage = "User registration failed with following error: " + errors.array();
-                return res.status(422).json({errors: errors.array()});
+                return res.status(422).json({ errors: errors.array() });
             }
 
             const { Username, Password, Email, Birthday } = req.body;
