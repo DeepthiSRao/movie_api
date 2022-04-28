@@ -2,12 +2,15 @@
 
 This is a backend "movie" application build using Node.js. This application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create list of their favorite movies.Authentication and authorization is implemented using JWT tokens.
 
-## App Features 🚀
+## App Features 
 
-- Scalable design
-- Security Middleware: cors, sessiontokens
-- Security in controller: user permission levels, sanitization, data filtering
-- In pattern Model-View-Controller this backend is easy to implement different Models
+* Allows users to see a list of all movies in the database
+* Allows users to get detailed information about a single movie by movie title
+* Allows users to get detailed information about a genre by genre name
+* Allows users to get detailed information about a director by name
+* Allows new users to create an user account
+* Allows existing users to update their user info or to delete their account
+* Allows existing users to add or remove movies to/from their list of favorites
 
 ## Technology Used
 * Javascript
