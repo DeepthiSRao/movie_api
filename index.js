@@ -163,6 +163,17 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt',{ session: false 
     });
 });
 
+app.get('/movies/actors/:Name', passport.authenticate('jwt',{ session: false }), (req, res) => {
+    Movies.findOne({ "Actors.Name": req.params.Name})
+    .then((actor)=>{
+        res.status(200).json(actor);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send(`Error: ${err}`);
+    });
+});
+
 /**
  * User to register
  * @method POST
